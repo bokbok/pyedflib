@@ -263,7 +263,7 @@ int edfopen_file_readonly(const char *path, struct edf_hdr_struct *edfhdr, int r
 
     return(-1);
   }
-  
+
     if(check_file_size<0)
   {
     edfhdr->filetype = EDFLIB_INVALID_CHECK_SIZE_VALUE;
@@ -1291,22 +1291,22 @@ static struct edfhdrblock * edflib_check_edf_file(FILE *inputfile, int *edf_erro
   {
     for(i=1; i<8; i++)
     {
-      if((scratchpad[i]<32)||(scratchpad[i]>126))
-      {
-        *edf_error = EDFLIB_FILE_CONTAINS_FORMAT_ERRORS;
-        free(edf_hdr);
-        free(edfhdr);
-        return(NULL);
-      }
+      // if((scratchpad[i]<32)||(scratchpad[i]>126))
+      // {
+      //   *edf_error = EDFLIB_FILE_CONTAINS_FORMAT_ERRORS;
+      //   free(edf_hdr);
+      //   free(edfhdr);
+      //   return(NULL);
+      // }
     }
 
-    if(strcmp(scratchpad + 1, "BIOSEMI"))
-    {
-      *edf_error = EDFLIB_FILE_CONTAINS_FORMAT_ERRORS;
-      free(edf_hdr);
-      free(edfhdr);
-      return(NULL);
-    }
+    // if(strcmp(scratchpad + 1, "BIOSEMI"))
+    // {
+    //   *edf_error = EDFLIB_FILE_CONTAINS_FORMAT_ERRORS;
+    //   free(edf_hdr);
+    //   free(edfhdr);
+    //   return(NULL);
+    // }
 
     edfhdr->bdf = 1;
   }
@@ -1314,22 +1314,22 @@ static struct edfhdrblock * edflib_check_edf_file(FILE *inputfile, int *edf_erro
   {
     for(i=0; i<8; i++)
     {
-      if((scratchpad[i]<32)||(scratchpad[i]>126))
-      {
-        *edf_error = EDFLIB_FILE_CONTAINS_FORMAT_ERRORS;
-        free(edf_hdr);
-        free(edfhdr);
-        return(NULL);
-      }
+      // if((scratchpad[i]<32)||(scratchpad[i]>126))
+      // {
+      //   *edf_error = EDFLIB_FILE_CONTAINS_FORMAT_ERRORS;
+      //   free(edf_hdr);
+      //   free(edfhdr);
+      //   return(NULL);
+      // }
     }
 
-    if(strcmp(scratchpad, "0       "))
-    {
-      *edf_error = EDFLIB_FILE_CONTAINS_FORMAT_ERRORS;
-      free(edf_hdr);
-      free(edfhdr);
-      return(NULL);
-    }
+    // if(strcmp(scratchpad, "0       "))
+    // {
+    //   *edf_error = EDFLIB_FILE_CONTAINS_FORMAT_ERRORS;
+    //   free(edf_hdr);
+    //   free(edfhdr);
+    //   return(NULL);
+    // }
 
     edfhdr->edf = 1;
   }
@@ -1344,13 +1344,13 @@ static struct edfhdrblock * edflib_check_edf_file(FILE *inputfile, int *edf_erro
   scratchpad[80] = 0;
   for(i=0; i<80; i++)
   {
-    if((((unsigned char *)scratchpad)[i]<32)||(((unsigned char *)scratchpad)[i]>126))
-    {
-      *edf_error = EDFLIB_FILE_CONTAINS_FORMAT_ERRORS;
-      free(edf_hdr);
-      free(edfhdr);
-      return(NULL);
-    }
+    // if((((unsigned char *)scratchpad)[i]<32)||(((unsigned char *)scratchpad)[i]>126))
+    // {
+    //   *edf_error = EDFLIB_FILE_CONTAINS_FORMAT_ERRORS;
+    //   free(edf_hdr);
+    //   free(edfhdr);
+    //   return(NULL);
+    // }
   }
 
   strncpy(edfhdr->patient, edf_hdr + 8, 80);
@@ -1362,13 +1362,13 @@ static struct edfhdrblock * edflib_check_edf_file(FILE *inputfile, int *edf_erro
   scratchpad[80] = 0;
   for(i=0; i<80; i++)
   {
-    if((((unsigned char *)scratchpad)[i]<32)||(((unsigned char *)scratchpad)[i]>126))
-    {
-      *edf_error = EDFLIB_FILE_CONTAINS_FORMAT_ERRORS;
-      free(edf_hdr);
-      free(edfhdr);
-      return(NULL);
-    }
+    // if((((unsigned char *)scratchpad)[i]<32)||(((unsigned char *)scratchpad)[i]>126))
+    // {
+    //   *edf_error = EDFLIB_FILE_CONTAINS_FORMAT_ERRORS;
+    //   free(edf_hdr);
+    //   free(edfhdr);
+    //   return(NULL);
+    // }
   }
 
   strncpy(edfhdr->recording, edf_hdr + 88, 80);
@@ -1380,13 +1380,13 @@ static struct edfhdrblock * edflib_check_edf_file(FILE *inputfile, int *edf_erro
   scratchpad[8] = 0;
   for(i=0; i<8; i++)
   {
-    if((scratchpad[i]<32)||(scratchpad[i]>126))
-    {
-      *edf_error = EDFLIB_FILE_ERRORS_STARTDATE;
-      free(edf_hdr);
-      free(edfhdr);
-      return(NULL);
-    }
+    // if((scratchpad[i]<32)||(scratchpad[i]>126))
+    // {
+    //   *edf_error = EDFLIB_FILE_ERRORS_STARTDATE;
+    //   free(edf_hdr);
+    //   free(edfhdr);
+    //   return(NULL);
+    // }
   }
 
   error = 0;
@@ -1400,38 +1400,38 @@ static struct edfhdrblock * edflib_check_edf_file(FILE *inputfile, int *edf_erro
   if((edf_hdr[175]<48)||(edf_hdr[175]>57))      error = 1;
   strncpy(scratchpad, edf_hdr + 168, 8);
 
-  if(error)
-  {
-    scratchpad[8] = 0;
-    *edf_error = EDFLIB_FILE_ERRORS_STARTDATE;
-    free(edf_hdr);
-    free(edfhdr);
-    return(NULL);
-  }
+  // if(error)
+  // {
+  //   scratchpad[8] = 0;
+  //   *edf_error = EDFLIB_FILE_ERRORS_STARTDATE;
+  //   free(edf_hdr);
+  //   free(edfhdr);
+  //   return(NULL);
+  // }
 
   scratchpad[2] = 0;
   scratchpad[5] = 0;
   scratchpad[8] = 0;
 
-  if((edflib_atof_nonlocalized(scratchpad)<1)||(edflib_atof_nonlocalized(scratchpad)>31))
-  {
-    strncpy(scratchpad, edf_hdr + 168, 8);
-    scratchpad[8] = 0;
-    *edf_error = EDFLIB_FILE_ERRORS_STARTDATE;
-    free(edf_hdr);
-    free(edfhdr);
-    return(NULL);
-  }
-
-  if((edflib_atof_nonlocalized(scratchpad+3)<1)||(edflib_atof_nonlocalized(scratchpad+3)>12))
-  {
-    strncpy(scratchpad, edf_hdr + 168, 8);
-    scratchpad[8] = 0;
-    *edf_error = EDFLIB_FILE_ERRORS_STARTDATE;
-    free(edf_hdr);
-    free(edfhdr);
-    return(NULL);
-  }
+  // if((edflib_atof_nonlocalized(scratchpad)<1)||(edflib_atof_nonlocalized(scratchpad)>31))
+  // {
+  //   strncpy(scratchpad, edf_hdr + 168, 8);
+  //   scratchpad[8] = 0;
+  //   *edf_error = EDFLIB_FILE_ERRORS_STARTDATE;
+  //   free(edf_hdr);
+  //   free(edfhdr);
+  //   return(NULL);
+  // }
+  //
+  // if((edflib_atof_nonlocalized(scratchpad+3)<1)||(edflib_atof_nonlocalized(scratchpad+3)>12))
+  // {
+  //   strncpy(scratchpad, edf_hdr + 168, 8);
+  //   scratchpad[8] = 0;
+  //   *edf_error = EDFLIB_FILE_ERRORS_STARTDATE;
+  //   free(edf_hdr);
+  //   free(edfhdr);
+  //   return(NULL);
+  // }
 
   edfhdr->startdate_day = edflib_atof_nonlocalized(scratchpad);
   edfhdr->startdate_month = edflib_atof_nonlocalized(scratchpad + 3);
@@ -1451,13 +1451,13 @@ static struct edfhdrblock * edflib_check_edf_file(FILE *inputfile, int *edf_erro
   scratchpad[8] = 0;
   for(i=0; i<8; i++)
   {
-    if((scratchpad[i]<32)||(scratchpad[i]>126))
-    {
-      *edf_error = EDFLIB_FILE_ERRORS_STARTTIME;
-      free(edf_hdr);
-      free(edfhdr);
-      return(NULL);
-    }
+    // if((scratchpad[i]<32)||(scratchpad[i]>126))
+    // {
+    //   *edf_error = EDFLIB_FILE_ERRORS_STARTTIME;
+    //   free(edf_hdr);
+    //   free(edfhdr);
+    //   return(NULL);
+    // }
   }
 
   error = 0;
@@ -1472,49 +1472,49 @@ static struct edfhdrblock * edflib_check_edf_file(FILE *inputfile, int *edf_erro
 
   strncpy(scratchpad, edf_hdr + 176, 8);
 
-  if(error)
-  {
-    strncpy(scratchpad, edf_hdr + 176, 8);
-    scratchpad[8] = 0;
-    *edf_error = EDFLIB_FILE_ERRORS_STARTTIME;
-    free(edf_hdr);
-    free(edfhdr);
-    return(NULL);
-  }
+  // if(error)
+  // {
+  //   strncpy(scratchpad, edf_hdr + 176, 8);
+  //   scratchpad[8] = 0;
+  //   *edf_error = EDFLIB_FILE_ERRORS_STARTTIME;
+  //   free(edf_hdr);
+  //   free(edfhdr);
+  //   return(NULL);
+  // }
 
   scratchpad[2] = 0;
   scratchpad[5] = 0;
   scratchpad[8] = 0;
 
-  if(edflib_atof_nonlocalized(scratchpad)>23)
-  {
-    strncpy(scratchpad, edf_hdr + 176, 8);
-    scratchpad[8] = 0;
-    *edf_error = EDFLIB_FILE_ERRORS_STARTTIME;
-    free(edf_hdr);
-    free(edfhdr);
-    return(NULL);
-  }
+  // if(edflib_atof_nonlocalized(scratchpad)>23)
+  // {
+  //   strncpy(scratchpad, edf_hdr + 176, 8);
+  //   scratchpad[8] = 0;
+  //   *edf_error = EDFLIB_FILE_ERRORS_STARTTIME;
+  //   free(edf_hdr);
+  //   free(edfhdr);
+  //   return(NULL);
+  // }
 
-  if(edflib_atof_nonlocalized(scratchpad+3)>59)
-  {
-    strncpy(scratchpad, edf_hdr + 176, 8);
-    scratchpad[8] = 0;
-    *edf_error = EDFLIB_FILE_ERRORS_STARTTIME;
-    free(edf_hdr);
-    free(edfhdr);
-    return(NULL);
-  }
+  // if(edflib_atof_nonlocalized(scratchpad+3)>59)
+  // {
+  //   strncpy(scratchpad, edf_hdr + 176, 8);
+  //   scratchpad[8] = 0;
+  //   *edf_error = EDFLIB_FILE_ERRORS_STARTTIME;
+  //   free(edf_hdr);
+  //   free(edfhdr);
+  //   return(NULL);
+  // }
 
-  if(edflib_atof_nonlocalized(scratchpad+6)>59)
-  {
-    strncpy(scratchpad, edf_hdr + 176, 8);
-    scratchpad[8] = 0;
-    *edf_error = EDFLIB_FILE_ERRORS_STARTTIME;
-    free(edf_hdr);
-    free(edfhdr);
-    return(NULL);
-  }
+  // if(edflib_atof_nonlocalized(scratchpad+6)>59)
+  // {
+  //   strncpy(scratchpad, edf_hdr + 176, 8);
+  //   scratchpad[8] = 0;
+  //   *edf_error = EDFLIB_FILE_ERRORS_STARTTIME;
+  //   free(edf_hdr);
+  //   free(edfhdr);
+  //   return(NULL);
+  // }
 
   edfhdr->starttime_hour = edflib_atof_nonlocalized(scratchpad);
   edfhdr->starttime_minute = edflib_atof_nonlocalized(scratchpad + 3);
@@ -1751,17 +1751,17 @@ static struct edfhdrblock * edflib_check_edf_file(FILE *inputfile, int *edf_erro
   for(i=0; i<edfhdr->edfsignals; i++)
   {
     strncpy(scratchpad, edf_hdr + 256 + (i * 16), 16);
-    for(j=0; j<16; j++)
-    {
-      if((scratchpad[j]<32)||(scratchpad[j]>126))
-      {
-        *edf_error = EDFLIB_FILE_ERRORS_LABEL;
-        free(edf_hdr);
-        free(edfhdr->edfparam);
-        free(edfhdr);
-        return(NULL);
-      }
-    }
+    // for(j=0; j<16; j++)
+    // {
+    //   if((scratchpad[j]<32)||(scratchpad[j]>126))
+    //   {
+    //     *edf_error = EDFLIB_FILE_ERRORS_LABEL;
+    //     free(edf_hdr);
+    //     free(edfhdr->edfparam);
+    //     free(edfhdr);
+    //     return(NULL);
+    //   }
+    // }
     if(edfhdr->edfplus)
     {
       if(!strncmp(scratchpad, "EDF Annotations ", 16))
@@ -1783,34 +1783,34 @@ static struct edfhdrblock * edflib_check_edf_file(FILE *inputfile, int *edf_erro
     strncpy(edfhdr->edfparam[i].label, edf_hdr + 256 + (i * 16), 16);
     edfhdr->edfparam[i].label[16] = 0;
   }
-  if(edfhdr->edfplus&&(!edfhdr->nr_annot_chns))
-  {
-    *edf_error = EDFLIB_FILE_ERRORS_LABEL;
-    free(edf_hdr);
-    free(edfhdr->edfparam);
-    free(edfhdr);
-    return(NULL);
-  }
-  if(edfhdr->bdfplus&&(!edfhdr->nr_annot_chns))
-  {
-    *edf_error = EDFLIB_FILE_ERRORS_LABEL;
-    free(edf_hdr);
-    free(edfhdr->edfparam);
-    free(edfhdr);
-    return(NULL);
-  }
-  if((edfhdr->edfsignals!=edfhdr->nr_annot_chns)||((!edfhdr->edfplus)&&(!edfhdr->bdfplus)))
-  {
-    //if(edfhdr->data_record_duration<0.0000001)
-    if(edfhdr->data_record_duration<0)
-    {
-      *edf_error = EDFLIB_FILE_ERRORS_LABEL;
-      free(edf_hdr);
-      free(edfhdr->edfparam);
-      free(edfhdr);
-      return(NULL);
-    }
-  }
+  // if(edfhdr->edfplus&&(!edfhdr->nr_annot_chns))
+  // {
+  //   *edf_error = EDFLIB_FILE_ERRORS_LABEL;
+  //   free(edf_hdr);
+  //   free(edfhdr->edfparam);
+  //   free(edfhdr);
+  //   return(NULL);
+  // }
+  // if(edfhdr->bdfplus&&(!edfhdr->nr_annot_chns))
+  // {
+  //   *edf_error = EDFLIB_FILE_ERRORS_LABEL;
+  //   free(edf_hdr);
+  //   free(edfhdr->edfparam);
+  //   free(edfhdr);
+  //   return(NULL);
+  // }
+  // if((edfhdr->edfsignals!=edfhdr->nr_annot_chns)||((!edfhdr->edfplus)&&(!edfhdr->bdfplus)))
+  // {
+  //   //if(edfhdr->data_record_duration<0.0000001)
+  //   if(edfhdr->data_record_duration<0)
+  //   {
+  //     *edf_error = EDFLIB_FILE_ERRORS_LABEL;
+  //     free(edf_hdr);
+  //     free(edfhdr->edfparam);
+  //     free(edfhdr);
+  //     return(NULL);
+  //   }
+  // }
 
 /**************************** TRANSDUCER TYPES *************************************/
 
@@ -2229,14 +2229,14 @@ static struct edfhdrblock * edflib_check_edf_file(FILE *inputfile, int *edf_erro
     strncpy(scratchpad, edf_hdr + 256 + (edfhdr->edfsignals * 224) + (i * 32), 32);
     for(j=0; j<32; j++)
     {
-      if((scratchpad[j]<32)||(scratchpad[j]>126))
-      {
-        *edf_error = EDFLIB_FILE_CONTAINS_FORMAT_ERRORS;
-        free(edf_hdr);
-        free(edfhdr->edfparam);
-        free(edfhdr);
-        return(NULL);
-      }
+      // if((scratchpad[j]<32)||(scratchpad[j]>126))
+      // {
+      //   *edf_error = EDFLIB_FILE_CONTAINS_FORMAT_ERRORS;
+      //   free(edf_hdr);
+      //   free(edfhdr->edfparam);
+      //   free(edfhdr);
+      //   return(NULL);
+      // }
     }
     strncpy(edfhdr->edfparam[i].reserved, edf_hdr + 256 + (edfhdr->edfsignals * 224) + (i * 32), 32);
     edfhdr->edfparam[i].reserved[32] = 0;
@@ -2304,14 +2304,14 @@ static struct edfhdrblock * edflib_check_edf_file(FILE *inputfile, int *edf_erro
                               error = 1;
     }
 
-    if(error)
-    {
-      *edf_error = EDFLIB_FILE_CONTAINS_FORMAT_ERRORS;
-      free(edf_hdr);
-      free(edfhdr->edfparam);
-      free(edfhdr);
-      return(NULL);
-    }
+    // if(error)
+    // {
+    //   *edf_error = EDFLIB_FILE_CONTAINS_FORMAT_ERRORS;
+    //   free(edf_hdr);
+    //   free(edfhdr->edfparam);
+    //   free(edfhdr);
+    //   return(NULL);
+    // }
 
     p = 0;
     if(edfhdr->patient[p]=='X')
@@ -2466,14 +2466,14 @@ static struct edfhdrblock * edflib_check_edf_file(FILE *inputfile, int *edf_erro
       if(n>1)  break;
     }
 
-    if(error)
-    {
-      *edf_error = EDFLIB_FILE_ERRORS_RECORDINGFIELD;
-      free(edf_hdr);
-      free(edfhdr->edfparam);
-      free(edfhdr);
-      return(NULL);
-    }
+    // if(error)
+    // {
+    //   *edf_error = EDFLIB_FILE_ERRORS_RECORDINGFIELD;
+    //   free(edf_hdr);
+    //   free(edfhdr->edfparam);
+    //   free(edfhdr);
+    //   return(NULL);
+    // }
 
     if(edf_hdr[98]!='X')
     {
@@ -2487,25 +2487,25 @@ static struct edfhdrblock * edflib_check_edf_file(FILE *inputfile, int *edf_erro
       if(edflib_atof_nonlocalized(scratchpad)!=edflib_atof_nonlocalized(scratchpad2))  error = 1;
       if(edflib_atof_nonlocalized(scratchpad+3)!=r)  error = 1;
       if(edflib_atof_nonlocalized(scratchpad+6)!=edflib_atof_nonlocalized(scratchpad2+9))  error = 1;
-      if(error)
-      {
-        *edf_error = EDFLIB_FILE_ERRORS_RECORDINGFIELD;
-        free(edf_hdr);
-        free(edfhdr->edfparam);
-        free(edfhdr);
-        return(NULL);
-      }
+      // if(error)
+      // {
+      //   *edf_error = EDFLIB_FILE_ERRORS_RECORDINGFIELD;
+      //   free(edf_hdr);
+      //   free(edfhdr->edfparam);
+      //   free(edfhdr);
+      //   return(NULL);
+      // }
 
       edfhdr->startdate_year = edflib_atof_nonlocalized(scratchpad2 + 7);
 
-      if(edfhdr->startdate_year<1970)
-      {
-        *edf_error = EDFLIB_FILE_ERRORS_RECORDINGFIELD;
-        free(edf_hdr);
-        free(edfhdr->edfparam);
-        free(edfhdr);
-        return(NULL);
-      }
+      // if(edfhdr->startdate_year<1970)
+      // {
+      //   *edf_error = EDFLIB_FILE_ERRORS_RECORDINGFIELD;
+      //   free(edf_hdr);
+      //   free(edfhdr->edfparam);
+      //   free(edfhdr);
+      //   return(NULL);
+      // }
     }
 
     p = 10;
@@ -2800,7 +2800,7 @@ static long long edflib_get_long_duration(char *str)
   int i, len=8, hasdot=0, dotposition=0;
 
   long long value=0, radix;
-  
+
   if((str[0] == '+') || (str[0] == '-'))
   {
     for(i=0; i<7; i++)
@@ -2809,7 +2809,7 @@ static long long edflib_get_long_duration(char *str)
     }
     str[7] = ' ';
   }
-   
+
   for(i=0; i<8; i++)
   {
     if(str[i]==' ')
@@ -2871,8 +2871,8 @@ int edflib_repair_file_size(const char *path, struct edfhdrblock *edfhdr)
 {
   int p;
   FILE *file;
-  
-  file = fopeno(path, "wb");  
+
+  file = fopeno(path, "wb");
   if(edfhdr->datarecords<100000000LL)
   {
     fseeko(file, 236LL, SEEK_SET);
@@ -3753,7 +3753,7 @@ int edfopen_file_writeonly(const char *path, int filetype, int number_of_signals
     hdr->edfplus = 1;
     hdr->nr_annot_chns = 1;
   }
-  
+
     if(filetype==EDFLIB_FILETYPE_EDF)
   {
     hdr->edf = 1;
@@ -3774,12 +3774,12 @@ int edfopen_file_writeonly(const char *path, int filetype, int number_of_signals
     hdr->bdfplus = 0;
     hdr->nr_annot_chns = 0;
   }
-  
+
   hdr->long_data_record_duration = EDFLIB_TIME_DIMENSION;
 
   hdr->data_record_duration = 1.0;
 
-  
+
 
   return(handle);
 }
@@ -4609,7 +4609,7 @@ int edfwrite_physical_samples(int handle, double *buf)
     digbuf = (char *)calloc(1, sf*3);
   else
     digbuf = (char *)calloc(1, sf*2);
-      
+
   for(i=0; i<sf; i++)
   {
     value = (buf[i] / bitvalue) - phys_offset;
@@ -4780,7 +4780,7 @@ int edf_blockwrite_physical_samples(int handle, double *buf)
       }
 
       //fputc(value&0xff, file);
-      
+
 
       //if(fputc((value>>8)&0xff, file)==EOF)
       //{
@@ -4873,17 +4873,17 @@ static int edflib_write_edf_header(struct edfhdrblock *hdr)
       {
         return(-22);
       }
-  
+
       if(hdr->edfparam[i].dig_max==hdr->edfparam[i].dig_min)
       {
         return(-23);
       }
-  
+
       if(hdr->edfparam[i].dig_max<hdr->edfparam[i].dig_min)
       {
         return(-24);
       }
-  
+
       if(hdr->edfparam[i].phys_max==hdr->edfparam[i].phys_min)
       {
         return(-25);
@@ -5229,7 +5229,7 @@ static int edflib_write_edf_header(struct edfhdrblock *hdr)
   {
     fprintf(file, "BDF+C");
   }
-  else 
+  else
   {
     fprintf(file, "     ");
   }
@@ -6876,34 +6876,3 @@ static int edflib_atoi_nonlocalized(const char *str)
 
   return(value * sign);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

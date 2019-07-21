@@ -18,12 +18,12 @@ except ImportError:
     if not os.path.exists(os.path.join('pyedflib', '_extensions', '_pyedflib.c')):
         msg = ("Cython must be installed when working with a development "
                "version of PyEDFlib")
-        raise RuntimeError(msg)    
+        raise RuntimeError(msg)
 
 
 MAJOR = 0
 MINOR = 1
-MICRO = 14
+MICRO = 15
 ISRELEASED = True
 VERSION = '%d.%d.%d' % (MAJOR, MINOR, MICRO)
 
@@ -249,7 +249,7 @@ if __name__ == '__main__':
     write_version_py()
     if USE_CYTHON:
             ext_modules = cythonize(ext_modules, compiler_directives=cythonize_opts)
-            
+
     setup(
         name="pyEDFlib",
         maintainer="Holger Nahrstaedt",
@@ -285,4 +285,3 @@ if __name__ == '__main__':
         test_suite='nose.collector',
         install_requires=["numpy>=1.9.1"],
     )
-
