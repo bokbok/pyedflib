@@ -34,13 +34,13 @@ Each "generator" example creates an EDF+ or BDF+ file with sample signals.
 `test_generator` shows how to use most of the functions provided by the library and generates an
 EDF+ or BDF+ testfile with several sample signals.
 
-`sine_generator` creates a BDF+ file containing the signal "sine", a 1 Hz sinoidal waveform with a
+`sine_generator` creates a BDF+ file containing the signal "sine", a 1 Hz sinusoidal waveform with a
 sample frequency of 2048 Hz.
 
 `sweep_generator` creates a linear or logarithmic sweep through a range of frequencies in EDF+ or
 BDF+ format.
 
-Use EDFbrowser to view these files: http://www.teuniz.net/edfbrowser/
+Use EDFbrowser to view these files: https://www.teuniz.net/edfbrowser/
 
 `test_edflib <filename> <signalnumber>` will print the properties of the EDF/BDF header, the
 annotations, and the values of 200 samples of the chosen signal. For example, running

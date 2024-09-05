@@ -2,11 +2,12 @@
 
 .. currentmodule:: pyedflib
 
-========
-pyEDFlib
-========
+This section describes functions used to perform reading of a EDF/BDF file.
 
 EDF/BDF file reader ``edfreader``
 ---------------------------------
 
-.. autofunction:: EdfReader
+.. autoclass:: EdfReader
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -2,22 +2,22 @@
 # uses line collections (might actually be from pbrain example)
 # clm
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 from matplotlib.collections import LineCollection
 
 
-def stackplot(marray, seconds=None, start_time=None, ylabels=None):
+def stackplot(marray, seconds=None, start_time=None, ylabels=None, ax=None):
     """
     will plot a stack of traces one above the other assuming
     marray.shape = numRows, numSamples
     """
     tarray = np.transpose(marray)
-    stackplot_t(tarray, seconds=seconds, start_time=start_time, ylabels=ylabels)
+    stackplot_t(tarray, seconds=seconds, start_time=start_time, ylabels=ylabels, ax=ax)
     plt.show()
 
 
-def stackplot_t(tarray, seconds=None, start_time=None, ylabels=None):
+def stackplot_t(tarray, seconds=None, start_time=None, ylabels=None, ax=None):
     """
     will plot a stack of traces one above the other assuming
     tarray.shape =  numSamples, numRows
@@ -41,7 +41,8 @@ def stackplot_t(tarray, seconds=None, start_time=None, ylabels=None):
         xlm = (0,numSamples)
 
     ticklocs = []
-    ax = plt.subplot(111)
+    if ax is None:
+        ax = plt.subplot(111)
     plt.xlim(*xlm)
     # xticks(np.linspace(xlm, 10))
     dmin = data.min()
