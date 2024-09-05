@@ -1,13 +1,9 @@
 #!/usr/bin/env python
-from __future__ import division, print_function, absolute_import
 
 import numpy as np
-
-import pyedflib
-
-
 from stacklineplot import stackplot
 
+import pyedflib
 
 if __name__ == '__main__':
     f = pyedflib.data.test_generator()

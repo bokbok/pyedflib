@@ -4,7 +4,7 @@
 Preparing Windows build environment
 ===================================
 
-To start developing PyYAWT code on Windows you will have to install
+To start developing pyedflib code on Windows you will have to install
 a C compiler and prepare the build environment.
 
 Installing Microsoft Visual C++ Compiler for Python 2.7
@@ -35,8 +35,8 @@ After completing these steps continue with
 :ref:`Installing build dependencies <dev-installing-build-dependencies>`.
 
 
-.. _Python: http://python.org/
-.. _numpy: http://numpy.scipy.org/
-.. _Cython: http://cython.org/
-.. _Sphinx: http://sphinx.pocoo.org/
+.. _Python: https://www.python.org/
+.. _numpy: https://numpy.org/
+.. _Cython: https://cython.org/
+.. _Sphinx: https://www.sphinx-doc.org/
 .. _Microsoft Visual C++ Compiler for Python 2.7: https://www.microsoft.com/en-us/download/details.aspx?id=44266

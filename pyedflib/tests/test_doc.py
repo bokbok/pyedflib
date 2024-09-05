@@ -1,10 +1,7 @@
-from __future__ import division, print_function, absolute_import
-
 import doctest
 import glob
 import os
 import unittest
-
 
 pdir = os.path.pardir
 docs_base = os.path.abspath(os.path.join(os.path.dirname(__file__),

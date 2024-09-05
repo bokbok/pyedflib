@@ -2,11 +2,10 @@
 
 .. currentmodule:: pyedflib
 
-========
-pyEDFlib
-========
-
 EDF/BDF file writer ``edfwriter``
 ---------------------------------
 
-.. autofunction:: EdfWriter
+.. autoclass:: EdfWriter
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -22,28 +22,28 @@ docstrings is valid python::
     $ python refguide_check.py --check_docs optimize
 
 """
-from __future__ import print_function
-
-import sys
+import copy
+import doctest
+import glob
+import inspect
+import io
 import os
 import re
-import copy
-import inspect
-import warnings
-import doctest
-import tempfile
-import io
-import docutils.core
-from docutils.parsers.rst import directives
 import shutil
-import glob
-from doctest import NORMALIZE_WHITESPACE, ELLIPSIS, IGNORE_EXCEPTION_DETAIL
+import sys
+import tempfile
+import warnings
 from argparse import ArgumentParser
+from doctest import ELLIPSIS, IGNORE_EXCEPTION_DETAIL, NORMALIZE_WHITESPACE
+
+import docutils.core
 import numpy as np
+from docutils.parsers.rst import directives
 
 # sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'doc',
 #                 'sphinxext'))
 from numpydoc.docscrape_sphinx import get_doc_object
+
 # Remove sphinx directives that don't run without Sphinx environment
 directives._directives.pop('versionadded', None)
 directives._directives.pop('versionchanged', None)
@@ -62,7 +62,7 @@ OTHER_MODULE_DOCS = {}
 
 # these names are known to fail doctesting and we like to keep it that way
 # e.g. sometimes pseudocode is acceptable etc
-DOCTEST_SKIPLIST = set([])
+DOCTEST_SKIPLIST = set()
 
 # these names are not required to be present in ALL despite being in
 # autosummary:: listing
@@ -238,7 +238,7 @@ def validate_rst_syntax(text, name, dots=True):
     if text is None:
         if dots:
             output_dot('E')
-        return False, "ERROR: %s: no documentation" % (name,)
+        return False, f"ERROR: {name}: no documentation"
 
     ok_unknown_items = set([
         'mod', 'currentmodule', 'autosummary', 'data',
@@ -314,11 +314,7 @@ def check_rest(module, names, dots=True):
     Returns: [(name, success_flag, output), ...]
     """
 
-    try:
-        skip_types = (dict, str, unicode, float, int)
-    except NameError:
-        # python 3
-        skip_types = (dict, str, float, int)
+    skip_types = (dict, str, float, int)
 
     results = []
 
@@ -332,7 +328,7 @@ def check_rest(module, names, dots=True):
         obj = getattr(module, name, None)
 
         if obj is None:
-            results.append((full_name, False, "%s has no docstring" % (full_name,)))
+            results.append((full_name, False, f"{full_name} has no docstring"))
             continue
         elif isinstance(obj, skip_types):
             continue
@@ -489,9 +485,9 @@ class Checker(doctest.OutputChecker):
             # and then compare the tuples.
             try:
                 num = len(a_want)
-                regex = ('[\w\d_]+\(' +
-                         ', '.join(['[\w\d_]+=(.+)']*num) +
-                         '\)')
+                regex = (r'[\w\d_]+\(' +
+                         ', '.join([r'[\w\d_]+=(.+)']*num) +
+                         r'\)')
                 grp = re.findall(regex, got.replace('\n', ' '))
                 if len(grp) > 1:  # no more than one for now
                     return False
@@ -513,7 +509,7 @@ class Checker(doctest.OutputChecker):
 
     def _do_check(self, want, got):
         # This should be done exactly as written to correctly handle all of
-        # numpy-comparable objects, strings, and heterogenous tuples
+        # numpy-comparable objects, strings, and heterogeneous tuples
         try:
             if want == got:
                 return True
@@ -536,7 +532,7 @@ def _run_doctests(tests, full_name, verbose, doctest_warnings):
     def out(msg):
         output.append(msg)
 
-    class MyStderr(object):
+    class MyStderr:
         """Redirect stderr to the current stdout"""
         def write(self, msg):
             if doctest_warnings:
