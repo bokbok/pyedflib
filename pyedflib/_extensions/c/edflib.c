@@ -5120,12 +5120,7 @@ int edfwrite_physical_samples(int handle, double *buf)
 
   phys_offset = hdr->edfparam[edfsignal].offset;
 
-  if(hdr->bdf)
-    digbuf = (char *)calloc(1, sf*3);
-  else
-    digbuf = (char *)calloc(1, sf*2);
-
-  for(i=0; i<sf; i++)
+  if(hdr->edf)
   {
     if(hdr->wrbufsize < (sf * 2))
     {
